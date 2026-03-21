@@ -1,10 +1,12 @@
 package com.waste2worth.backend.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.waste2worth.backend.Entity.User;
+import com.waste2worth.backend.DTO.RegisterRequest;
+
 import com.waste2worth.backend.Service.UserService;
 
 @RestController
@@ -19,7 +21,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public User createUser(@RequestBody User user) {
-        return userService.saveUser(user);
+    public ResponseEntity<?> registerUser(@RequestBody RegisterRequest request){
+        userService.saveUser(request);
+        return ResponseEntity.ok("User register succesfully");
     }
 }
