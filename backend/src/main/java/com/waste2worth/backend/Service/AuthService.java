@@ -33,7 +33,7 @@ public class AuthService {
      user.setPassword(passwordEncoder.encode(request.getPassword()));
 
 
-     user.setRole(Role.ADMIN); 
+     user.setRole(Role.CUSTOMER); 
      user.setCoins(0);
 
      User savedUser = userRepository.save(user);
