@@ -4,7 +4,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Base64.Decoder;
+
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
@@ -50,7 +50,7 @@ public boolean isTokenValid(String token, UserDetails userDetails){
   return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 }
 
-private String extractUsername(String token) {
+public String extractUsername(String token) {
   
   return extractClaim(token, Claims::getSubject);
 }

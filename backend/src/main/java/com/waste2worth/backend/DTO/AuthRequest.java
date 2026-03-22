@@ -1,4 +1,4 @@
-package com.waste2worth.backend.Auth;
+package com.waste2worth.backend.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
