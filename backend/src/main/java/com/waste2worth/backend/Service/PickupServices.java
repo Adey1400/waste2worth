@@ -39,4 +39,8 @@ public List<Pickup> getMyPickups(){
     String email = SecurityContextHolder.getContext().getAuthentication().getName();
     return pickupRepository.findByUserEmail(email);
 }
+
+public Object getAllPendingPickups() {
+   return pickupRepository.findByStatus(PickupStatus.PENDING);
+}
 }

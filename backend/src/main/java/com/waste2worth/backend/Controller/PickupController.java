@@ -3,6 +3,7 @@ package com.waste2worth.backend.Controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,5 +30,11 @@ public class PickupController {
     @GetMapping
     public ResponseEntity<List<Pickup>> getMyHistory() {
         return ResponseEntity.ok(pickupService.getMyPickups());
+    }
+
+    @GetMapping("/all-pending")
+    @PreAuthorize("hasAuthority('AGENT')") // <-- Only Agents can pass this line!
+    public ResponseEntity<List<Pickup>> getAllPendingPickups() {
+        return ResponseEntity.ok(pickupService.getAllPendingPickups());
     }
 }
