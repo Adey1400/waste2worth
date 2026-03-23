@@ -1,6 +1,9 @@
 package com.waste2worth.backend.Controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,5 +24,10 @@ public class PickupController {
     @PostMapping
     public ResponseEntity<Pickup> create(@RequestBody PickupRequest request) {
         return ResponseEntity.ok(pickupService.createPickup(request));
+        
+    }
+    @GetMapping
+    public ResponseEntity<List<Pickup>> getMyHistory() {
+        return ResponseEntity.ok(pickupService.getMyPickups());
     }
 }
