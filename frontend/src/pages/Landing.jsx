@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { Leaf, Recycle, Coins, Truck, ArrowRight, ShieldCheck, Globe2 } from 'lucide-react';
 import bgImage from '../assets/background.jpeg';
 import Footer from '../components/Footer';
-
+import { useAuth } from '../context/AuthContext';
 
 const Landing = () => {
+    const { user ,logout} = useAuth();
   const steps = [
     { icon: <Truck size={32} />, title: "Door-to-Door Pickup", desc: "Schedule a pickup and our team collects your sorted waste directly from your doorstep." },
     { icon: <Recycle size={32} />, title: "Digital Weighing", desc: "Provide the weight of your Dry, Wet, or Electronic waste in kilograms." },
@@ -16,28 +17,47 @@ const Landing = () => {
   return (
     <div className="min-h-screen bg-[#0a0f0d] text-slate-200 font-sans selection:bg-emerald-500/30">
       
-      {/* --- PUBLIC NAVBAR --- */}
+
+    {/* --- PUBLIC NAVBAR --- */}
       <nav className="fixed top-0 w-full z-50 bg-[#0a0f0d]/70 backdrop-blur-md border-b border-emerald-900/30">
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+          
+          {/* Left Side: Logo & Title ALWAYS visible */}
           <div className="flex items-center gap-2 group cursor-pointer">
             <motion.div whileHover={{ rotate: 180 }} transition={{ duration: 0.5 }}>
               <Leaf className="text-emerald-500 drop-shadow-[0_0_10px_rgba(52,211,153,0.5)]" size={28} />
             </motion.div>
             <span className="text-xl font-bold tracking-widest text-white">Waste2Worth</span>
           </div>
-          
+
+          {/* Right Side: Logic based on Auth State */}
           <div className="flex gap-4">
-            <Link to="/login">
-              <motion.button whileHover={{ y: -2 }} className="px-6 py-2 text-emerald-400 font-medium hover:text-emerald-300 transition-colors">
-                Login
+            {user ? (
+              // IF LOGGED IN: Show nothing but a subtle Logout button
+              <motion.button 
+                onClick={logout} 
+                whileHover={{ y: -2 }} 
+                className="px-6 py-2 text-red-400 font-medium hover:text-red-300 transition-colors text-sm border border-red-500/20 rounded-full hover:bg-red-500/10"
+              >
+                Logout
               </motion.button>
-            </Link>
-            <Link to="/register">
-              <motion.button whileHover={{ y: -2, boxShadow: "0 0 20px rgba(52,211,153,0.4)" }} className="px-6 py-2 bg-emerald-500 text-slate-900 font-bold rounded-full transition-all">
-                Get Started
-              </motion.button>
-            </Link>
+            ) : (
+              // IF NOT LOGGED IN: Show the standard Login / Get Started buttons
+              <>
+                <Link to="/login">
+                  <motion.button whileHover={{ y: -2 }} className="px-6 py-2 text-emerald-400 font-medium hover:text-emerald-300 transition-colors text-sm">
+                    Login
+                  </motion.button>
+                </Link>
+                <Link to="/register">
+                  <motion.button whileHover={{ y: -2, boxShadow: "0 0 20px rgba(52,211,153,0.4)" }} className="px-6 py-2 bg-emerald-500 text-slate-900 font-bold rounded-full transition-all text-sm">
+                    Get Started
+                  </motion.button>
+                </Link>
+              </>
+            )}
           </div>
+
         </div>
       </nav>
 
@@ -75,13 +95,22 @@ const Landing = () => {
             Confirm disposal, choose your waste type, record the weight, and earn coins instantly. Join us in building a cleaner, greener tomorrow.
           </motion.p>
 
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}>
-            <Link to="/register">
-              <button className="group flex items-center gap-3 px-8 py-4 bg-emerald-500 text-slate-900 font-bold rounded-full text-lg hover:bg-emerald-400 transition-all shadow-[0_0_30px_rgba(52,211,153,0.3)]">
-                Book a Pickup 
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </Link>
+       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}>
+            {user ? (
+              <Link to={user.role === 'AGENT' ? '/agent' : '/dashboard'}>
+                <button className="group flex items-center gap-3 px-8 py-4 bg-emerald-500 text-slate-900 font-bold rounded-full text-lg hover:bg-emerald-400 transition-all shadow-[0_0_30px_rgba(52,211,153,0.3)]">
+                  Go to Dashboard 
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <button className="group flex items-center gap-3 px-8 py-4 bg-emerald-500 text-slate-900 font-bold rounded-full text-lg hover:bg-emerald-400 transition-all shadow-[0_0_30px_rgba(52,211,153,0.3)]">
+                  Book a Pickup 
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              </Link>
+            )}
           </motion.div>
         </div>
       </section>

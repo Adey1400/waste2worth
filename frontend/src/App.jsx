@@ -7,12 +7,13 @@ import EarthLoader from './components/EarthLoader';
 import Landing from './pages/Landing';
 import { AuthProvider } from './context/AuthContext';
 
-// 1. IMPORT YOUR NEW PAGES HERE!
+
 import Login from './pages/Login';
 import Register from './pages/Register';
-
-// We will leave the dashboards as placeholders until we build them next
-const Dashboard = () => <div className="text-white p-10 h-[200vh]">Customer Dashboard</div>;
+import Dashboard from './pages/Dashboard';
+import Pickups from './pages/Pickup';
+import FAQ from './pages/FAQ';
+import Rewards from './pages/Rewards';
 const AgentDashboard = () => <div className="text-white p-10">Agent Dashboard</div>;
 
 const ProtectedRoute = ({ children }) => {
@@ -25,10 +26,13 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <ToastContainer 
+       <ToastContainer 
           position="top-right" 
+          autoClose={4000}
           theme="dark" 
-          toastProps={{ style: { background: 'rgba(15, 23, 20, 0.9)', border: '1px solid rgba(52, 211, 153, 0.3)', backdropFilter: 'blur(10px)' } }} 
+          toastClassName="!bg-[#0f1714]/80 !backdrop-blur-2xl !border !border-emerald-500/30 !rounded-2xl !shadow-[0_0_30px_rgba(52,211,153,0.2)] !font-sans mt-4"
+          bodyClassName="!text-slate-200 !font-medium !text-sm !tracking-wide"
+          progressClassName="!bg-gradient-to-r !from-emerald-400 !to-teal-300"
         />
 
         <Routes>
@@ -41,7 +45,10 @@ function App() {
 
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/agent" element={<ProtectedRoute><AgentDashboard /></ProtectedRoute>} />
-
+          <Route path="/pickups" element={<ProtectedRoute><Pickups /></ProtectedRoute>} />
+          
+        <Route path="/rewards" element={<ProtectedRoute><Rewards /></ProtectedRoute>} /> 
+<Route path="/faq" element={<ProtectedRoute><FAQ /></ProtectedRoute>} /> {/* <-- ADDED */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>

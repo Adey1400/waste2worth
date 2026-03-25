@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
     delete api.defaults.headers.common['Authorization'];
     setUser(null);
     toast.info("Logged out safely.");
-    navigate('/login');
+    navigate('/');
   };
 
   return (
