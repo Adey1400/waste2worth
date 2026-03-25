@@ -33,7 +33,11 @@ public class AuthService {
      user.setPassword(passwordEncoder.encode(request.getPassword()));
 
 
-     user.setRole(Role.CUSTOMER); 
+     if (request.getRole() != null) {
+         user.setRole(request.getRole());
+     } else {
+         user.setRole(Role.CUSTOMER); // Default fallback for normal users
+     }
      user.setCoins(0);
 
      User savedUser = userRepository.save(user);

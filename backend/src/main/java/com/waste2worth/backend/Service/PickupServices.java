@@ -40,7 +40,7 @@ public List<Pickup> getMyPickups(){
     return pickupRepository.findByUserEmail(email);
 }
 
-public Object getAllPendingPickups() {
+public List<Pickup> getAllPendingPickups() {
    return pickupRepository.findByStatus(PickupStatus.PENDING);
 }
 }
