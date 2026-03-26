@@ -14,6 +14,7 @@ import Dashboard from './pages/Dashboard';
 import Pickups from './pages/Pickup';
 import FAQ from './pages/FAQ';
 import Rewards from './pages/Rewards';
+import EditProfile from './pages/EditProfile';
 const AgentDashboard = () => <div className="text-white p-10">Agent Dashboard</div>;
 
 const ProtectedRoute = ({ children }) => {
@@ -38,7 +39,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Landing />} />
           
-          {/* 2. Now these point to your actual component files */}
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/loader" element={<EarthLoader />} />
@@ -46,9 +47,9 @@ function App() {
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/agent" element={<ProtectedRoute><AgentDashboard /></ProtectedRoute>} />
           <Route path="/pickups" element={<ProtectedRoute><Pickups /></ProtectedRoute>} />
-          
+          <Route path="/profile/edit" element={<ProtectedRoute><EditProfile /></ProtectedRoute>} />
         <Route path="/rewards" element={<ProtectedRoute><Rewards /></ProtectedRoute>} /> 
-<Route path="/faq" element={<ProtectedRoute><FAQ /></ProtectedRoute>} /> {/* <-- ADDED */}
+ <Route path="/faq" element={<ProtectedRoute><FAQ /></ProtectedRoute>} /> {/* <-- ADDED */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AuthProvider>

@@ -38,12 +38,8 @@ const Pickups = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const payload = {
-        ...formData,
-        pickupDate: formData.pickupDate.split('T') 
-      };
 
-      await api.post('/pickups', payload);
+      await api.post('/pickups', formData);
       toast.success("Pickup scheduled successfully! 🌍");
       
       setFormData({ wasteType: 'DRY', weight: '', address: '', pickupDate: '' });
@@ -113,10 +109,11 @@ const Pickups = () => {
                     <input required type="number" min="1" placeholder="Estimated Weight (in kg)" value={formData.weight} onChange={(e) => setFormData({...formData, weight: e.target.value})} className="w-full bg-[#0a0f0d]/50 border border-emerald-900/40 text-white rounded-xl pl-12 pr-4 py-3.5 focus:outline-none focus:border-emerald-500 transition-colors" />
                   </div>
                   
-                  <div className="relative group">
-                    <Calendar className="absolute left-4 top-3.5 text-emerald-500/50 group-hover:text-emerald-400 transition-colors" size={22} />
-                    <input required type="datetime-local" value={formData.pickupDate} onChange={(e) => setFormData({...formData, pickupDate: e.target.value})} className="w-full bg-[#0a0f0d]/50 border border-emerald-900/40 text-slate-300 rounded-xl pl-12 pr-4 py-3.5 focus:outline-none focus:border-emerald-500 transition-colors css-calendar-icon-fix" />
-                  </div>
+              <div className="relative group">
+                 <Calendar className="absolute left-4 top-3.5 text-emerald-500/50 group-hover:text-emerald-400 transition-colors" size={22} />
+                 {/* CHANGED type to "date" */}
+                 <input required type="date" value={formData.pickupDate} onChange={(e) => setFormData({...formData, pickupDate: e.target.value})} className="w-full bg-[#0a0f0d]/50 border border-emerald-900/40 text-slate-300 rounded-xl pl-12 pr-4 py-3.5 focus:outline-none focus:border-emerald-500 transition-colors css-calendar-icon-fix" />
+               </div>
 
                   <div className="relative group">
                     <MapPin className="absolute left-4 top-3.5 text-emerald-500/50 group-hover:text-emerald-400 transition-colors" size={22} />

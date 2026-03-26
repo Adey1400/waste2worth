@@ -85,11 +85,17 @@ const AppLayout = ({ children }) => {
         </div>
 
         {/* --- USER PROFILE & LOGOUT SECTION --- */}
+     
         <div className="space-y-4">
           {user && (
             <div className="p-4 rounded-xl bg-[#0a0f0d]/50 border border-emerald-900/30 flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
-                <User size={20} />
+           
+              <div className="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0 overflow-hidden border border-emerald-500/30">
+                {user.profilePicture ? (
+                  <img src={user.profilePicture} alt="Profile" className="w-full h-full object-cover" />
+                ) : (
+                  <User size={20} />
+                )}
               </div>
               <div className="overflow-hidden">
                 <p className="text-sm font-bold text-white truncate">

@@ -25,11 +25,14 @@ public class AuthService {
 
   public AuthResponse register(RegisterRequest request){
      System.out.println("👉 Registering User: "+ request.getEmail());
+     String defaultAvatar = "https://ui-avatars.com/api/?name=" 
+                + request.getFirstName() + "+" + request.getLastName() 
+                + "&background=10b981&color=fff&rounded=true&bold=true";
      User user = new User();
      user.setFirstName(request.getFirstName());
      user.setLastName(request.getLastName());
      user.setEmail(request.getEmail());
-     
+     user.setProfilePicture(defaultAvatar);
      user.setPassword(passwordEncoder.encode(request.getPassword()));
 
 
@@ -51,6 +54,7 @@ public class AuthService {
                         .id(savedUser.getId())
                         .firstName(savedUser.getFirstName())
                         .email(savedUser.getEmail())
+                        
                         .coins(savedUser.getCoins())
                         .build();
 

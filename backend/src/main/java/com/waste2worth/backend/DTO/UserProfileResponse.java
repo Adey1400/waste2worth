@@ -12,4 +12,5 @@ public class UserProfileResponse {
     private String email;
     private int coins;
     private String role; 
+    private String profilePicture;
 }

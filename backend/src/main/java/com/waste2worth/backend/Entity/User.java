@@ -27,7 +27,7 @@ public class User implements UserDetails { // <-- 1. Implement UserDetails
     private Integer id;
     private String firstName;
     private String lastName;
-    
+    private String profilePicture;
     @Column(unique = true)
     private String email;
     @JsonIgnore
